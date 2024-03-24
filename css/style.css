@@ -1,33 +1,59 @@
-html{
+html {
     font-size: 16px;
 }
-.header{
+
+.header {
     top: 0;
     left: 0;
     right: 0;
     z-index: 99;
 }
-content > .topSell, .text-center {
+
+content>.topSell,
+.text-center {
     padding: 0% 5%;
 }
+
 .header-scrolled {
     background-color: white;
     color: black;
 }
-.item{
+
+/* .item {
     margin: 1rem 0rem;
 }
-.items{
+
+.items {
     height: 12rem;
     width: 12rem;
     border: 3px solid rgb(255, 255, 255);
     border-radius: 10px;
 }
-.label{
+
+.label {
     width: 7.5rem;
     border-radius: 0px 35px 0px 7px;
 }
-.itemsValue{
+
+.itemsValue {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
+} */
+
+.card1 .btn, .back {
+    transition: all .1s;
+
+    &:hover {
+        transform: scale(1.01);
+    }
+
+    &:active {
+        transform: scale(.99);
+    }
+}
+
+@media (max-width: 991.50px) {
+    .col1 {
+        border-radius: 1rem 1rem 0 0 !important;
+    }
 }
