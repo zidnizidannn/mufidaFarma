@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,55 +11,63 @@
     <script src="https://kit.fontawesome.com/2a6c7edf30.js" crossorigin="anonymous"></script>
     <title>Mufida Farma</title>
     <style>
-        *{
+        * {
             /* border: 1px solid red; */
         }
-        
     </style>
 </head>
+
 <body>
     <!-- header -->
-    <?php include 'layouts/header.html'?>
+    <?php include 'layouts/header.html' ?>
 
     <content class="d-block">
-        <?php include 'layouts/banner.html'?>
-        <div class="topSell d-flex flex-column justify-content-center" style="height: auto; background-color: rgb(213, 150, 150);">
-            <div class='item d-flex justify-content-between col-12 my-3' style='border: 1px solid rgba(255, 82, 82, 0.366); height: 12rem;'>
-            <?php
-            include 'conn.php';
-            $conn= connectDatabase();
-    
-            $sql = "SELECT namaObat, hargaObat, gambarObat FROM obat WHERE idObat BETWEEN 1 AND 5";
-            $result = $conn->query($sql);
-            
-            if ($result->num_rows > 0) {
-                // Output data setiap baris
-                while($row = $result->fetch_assoc()) {
-                     // Path direktori tempat menyimpan gambar
-                    $gambarDirectory = "images/";
-                    // URL lengkap gambar
-                    $gambarURL = $gambarDirectory . $row["gambarObat"];
-                    echo "<div class='items d-block position-relative col-2 d-flex flex-column' style='border: 3px solid rgb(255, 255, 255); border-radius: 10px;'>
-                                <img src='" . $gambarURL . "' class='gambar mx-auto my-auto' alt='" . $row["namaObat"] . "' style='width: 170px;'>
-                                <div class='label bg-light d-block bottom-0 position-absolute bottom-0' style='border-radius: 0px 35px 0px 7px;'>
-                                    <span class='namaItems m-1'>" . $row["namaObat"] . "</span><br>
-                                    <span class='hargaItems m-1'>Rp. " . $row["hargaObat"] . "</span>
-                                </div>
-                            </div>";
-                }
-            } else {
-                echo "Tidak ada data obat.";
-            }
-            ?>
+        <?php include 'layouts/banner.html' ?>
+        <div class="topSell d-flex flex-column justify-content-center mb-4" style="height: auto; background-color: rgb(213, 150, 150);">
+            <span class="h3 fw-bold my-3 text-light">Produk terpopuler</span>
+            <div class='item d-flex justify-content-between col-12 mb-3 flex-wrap ' style='height: auto;'>
+                <?php
+                include 'getdata.php';
+                getdata(1, 5);
+                ?>
             </div>
         </div>
 
-        <div class="category d-flex">
-            <div class="subCategory"></div>
+        <div class="body d-flex col-12">
+            <div class="category col-3 d-flex flex-column" style="">
+                <div class="d-block text-light p-2 " style="background-color: teal;">Filter</div>
+
+                <!-- filter kategori -->
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle w-100 " style="border: 1px solid black;" data-bs-toggle="dropdown" aria-expanded="true">
+                        Kategori Obat
+                    </button>
+                    <ul class="dropdown-menu w-100 text-center ">
+                        <li><a class="dropdown-item" href="#">Obat cair</a></li>
+                        <li><a class="dropdown-item" href="#">Obat tablet</a></li>
+                        <li><a class="dropdown-item" href="#">Obat kapsul</a></li>
+                        <li><a class="dropdown-item" href="#">Obat oles</a></li>
+                        <li><a class="dropdown-item" href="#">Obat tetes</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle w-100 " style="border: 1px solid black;" data-bs-toggle="dropdown" aria-expanded="true">
+                        Urutkan
+                    </button>
+                    <ul class="dropdown-menu w-100 text-center ">
+                        <li><a class="dropdown-item" href="#">A - Z</a></li>
+                        <li><a class="dropdown-item" href="#">Z - A</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-9 d-flex flex-wrap justify-content-around" style="font-size: 0.75rem;">
+                <?php
+                getdata(1, 50);
+                ?>
+            </div>
         </div>
     </content>
-    <footer>
-
-    </footer>
+    <?php include 'layouts/footer.html' ?>
 </body>
+
 </html>

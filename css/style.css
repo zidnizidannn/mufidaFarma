@@ -10,8 +10,14 @@ html {
 }
 
 content>.topSell,
-.text-center {
+.text-center, .body, .carousel {
     padding: 0% 5%;
+}
+.carousel {
+    padding: 0px;
+}
+.carousel .carousel-item {
+    padding: 0rem 5rem;
 }
 
 .header-scrolled {

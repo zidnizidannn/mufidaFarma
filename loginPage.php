@@ -11,14 +11,12 @@
     <script src="https://code.jquery.com/jquery-3.0.0.slim.js"></script>
     <script src="https://kit.fontawesome.com/2a6c7edf30.js" crossorigin="anonymous"></script>
     <style>
-        *{
-            
-        }
+        * {}
+
         .form-control:focus {
             box-shadow: 0px 0px 3px 2px rgb(213, 150, 150);
             border: 0.5px solid lightgrey;
         }
-        
     </style>
 </head>
 
@@ -37,17 +35,17 @@
                         <div class="col-md-12 col-lg-7 d-flex align-items-center">
                             <div class="card1 card-body p-4 p-lg-5 d-flex flex-column align-items-center">
                                 <div class="h2 mb-4 ">
-                                    <span>logo here</span>
+                                    <img src="/images/mufidasvg.svg" alt="" style="width: 150px;">
                                 </div>
-                                <div class="btn p-2 w-75 text-center m-1" id="registBtn" style="background-color: lightgrey; border-radius: 20px;">Daftar sebagai sobat Mufida</div>
-                                <div class="btn p-2 w-75 text-center m-1 " id="loginBtn" style="background-color: lightgrey; border-radius: 20px;">Masuk sebagai sobat Mufida</div>
+                                <div class="btn p-2 w-75 text-center m-1 text-light " id="registBtn" style="background-color: rgb(213, 150, 150); border-radius: 20px;">Daftar sebagai sobat Mufida</div>
+                                <div class="btn p-2 w-75 text-center m-1 text-light " id="loginBtn" style="background-color: rgb(213, 150, 150); border-radius: 20px;">Masuk sebagai sobat Mufida</div>
                             </div>
-                            
-                            <form action="register.php" method="post" class="card-body p-4 p-lg-5 d-flex flex-column align-items-center d-none" id="register">  
+
+                            <form action="register.php" method="post" class="card-body p-4 p-lg-5 d-flex flex-column align-items-center d-none" id="register">
                                 <span class="mb-3 mt-4">Silahkan masukkan data anda</span>
                                 <div class="form-group mb-3 ">
-                                    <label for="inputName">Nama</label>
-                                    <input type="text" class="form-control" name="inputName" id="inputName" placeholder="Masukkan nama" style="">
+                                    <label for="inputUsername">Username</label>
+                                    <input type="text" class="form-control" name="inputUsername" id="inputName" placeholder="Masukkan nama" style="">
                                 </div>
 
                                 <div class="form-group mb-3 ">
@@ -58,6 +56,12 @@
                                 <div class="form-group mb-3 ">
                                     <label for="inputPassword">Password</label>
                                     <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Password">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="confirmPassword">Konfirmasi Password</label>
+                                    <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Konfirmasi Password">
+                                    <small id="passwordMismatchError" class="text-danger d-none">Password tidak cocok</small>
                                 </div>
 
                                 <button class="btn" type="submit" style="background-color: lightgray;">Daftar sekarang!</button>
@@ -66,15 +70,15 @@
 
                             <!-- ============================================================= -->
 
-                            <form action="login.php" method="post" class="card-body p-4 p-lg-5 d-flex flex-column align-items-center d-none" id="login">  
+                            <form action="login.php" method="post" class="card-body p-4 p-lg-5 d-flex flex-column align-items-center d-none" id="login">
                                 <div class="form-group mb-3 ">
-                                    <label for="inputNumber">Nomor Whatsapp</label>
-                                    <input type="number" class="form-control" name="inputNumber" id="inputNumber" placeholder="Maukkan nomor whatsapp" style="">
+                                    <label for="number">Nomor Whatsapp</label>
+                                    <input type="number" class="form-control" name="number" id="inputNumber" placeholder="Maukkan nomor whatsapp" style="">
                                 </div>
 
                                 <div class="form-group mb-3 ">
-                                    <label for="inputPassword">Password</label>
-                                    <input type="password" class="form-control" name="inputPassword" id="inputPassword" placeholder="Password">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password">
                                 </div>
 
                                 <button class="btn" type="submit" style="background-color: lightgray;">Masuk</button>
@@ -100,8 +104,8 @@
             register.classList.toggle('d-none');
             // console.error();
         });
-        
-        backRegist.addEventListener('click', function () {
+
+        backRegist.addEventListener('click', function() {
             card1.classList.toggle('d-none');
             register.classList.toggle('d-none');
         });
@@ -116,6 +120,21 @@
             login.classList.toggle('d-none');
             console.error();
         });
+
+        const passwordInput = document.getElementById('inputPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const passwordMismatchError = document.getElementById('passwordMismatchError');
+
+        confirmPasswordInput.addEventListener('input', function() {
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                confirmPasswordInput.style.borderColor = 'red';
+                passwordMismatchError.classList.remove('d-none');
+            } else {
+                confirmPasswordInput.style.borderColor = '';
+                passwordMismatchError.classList.add('d-none');
+            }
+        });
     </script>
 </body>
+
 </html>
