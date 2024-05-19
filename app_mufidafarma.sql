@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2024 at 05:44 AM
+-- Generation Time: May 19, 2024 at 04:10 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `detail_pesanan` (
-  `idDetail` varchar(45) NOT NULL,
-  `jumlah` int(11) DEFAULT NULL,
-  `harga` int(6) DEFAULT NULL,
-  `idpesanan` int(11) NOT NULL,
+  `idDetail` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `harga` float NOT NULL,
+  `idPesanan` int(11) NOT NULL,
   `idSupply` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -42,9 +42,20 @@ CREATE TABLE `detail_pesanan` (
 --
 
 CREATE TABLE `kategori` (
-  `idkategori` int(11) NOT NULL,
-  `kategoriObat` varchar(45) DEFAULT NULL
+  `idKategori` int(11) NOT NULL,
+  `kategoriObat` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`idKategori`, `kategoriObat`) VALUES
+(1, 'cair'),
+(2, 'tablet'),
+(3, 'kapsul'),
+(4, 'oles'),
+(5, 'tetes');
 
 -- --------------------------------------------------------
 
@@ -53,9 +64,9 @@ CREATE TABLE `kategori` (
 --
 
 CREATE TABLE `keranjang` (
-  `idkeranjang` int(11) NOT NULL,
-  `jumlah` int(11) DEFAULT NULL,
-  `idpesanan` int(11) NOT NULL
+  `idKeranjang` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `idPesanan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -65,11 +76,29 @@ CREATE TABLE `keranjang` (
 --
 
 CREATE TABLE `obat` (
-  `idobat` int(11) NOT NULL,
-  `namaObat` varchar(100) DEFAULT NULL,
-  `desObat` varchar(255) DEFAULT NULL,
-  `idkategori` int(11) NOT NULL
+  `idObat` int(11) NOT NULL,
+  `namaObat` varchar(100) NOT NULL,
+  `desObat` varchar(255) NOT NULL,
+  `hargaObat` float NOT NULL,
+  `gambarObat` varchar(50) NOT NULL,
+  `idKategori` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `obat`
+--
+
+INSERT INTO `obat` (`idObat`, `namaObat`, `desObat`, `hargaObat`, `gambarObat`, `idKategori`) VALUES
+(1, 'Paracetamol Mef 500mg Tablet (per Strip)', 'Paracetamol (Acetaminophen) yaitu zat aktif yang memiliki aktivitas sebagai penurun demam/antipiretik dan pereda nyeri/analgesik yang bekerja dengan cara menghambat pembentukan prostaglandin yaitu zat yang memicu nyeri dan demam di hipotalamus untuk menin', 4.939, 'Paracetamol Mef 500mg Tablet (per Strip).jpg', 2),
+(2, 'Betadine Sol 5ml (per Botol)', 'larutan untuk membersihkan, mengobati, desinfektan pada luka', 7.199, 'Betadine Sol 5ml (per Botol).jpg', 1),
+(3, 'Sanmol Sirup 120mg/5ml (per Botol)', 'Sanmol Sirup 60 ml mengandung zat aktif Paracetamol (Acetaminophen) yaitu zat aktif yang memiliki aktivitas sebagai penurun demam/antipiretik dan pereda nyeri/analgesik yang bekerja dengan cara menghambat pembentukan prostaglandin yaitu zat yang memicu ny', 23.143, 'Sanmol Sirup 120mg/5ml (per Botol).jpg', 1),
+(4, 'Paratusin Tablet (per Strip)', 'Paratusin adalah obat untuk meringankan gejala flu seperti demam, sakit kepala, hidung tersumbat dan bersin-bersin yang disertain batuk. Obat ini masuk dalam golongan obat bebas terbatas.', 16.968, 'Paratusin Tablet (per Strip).jpg', 2),
+(5, 'Balsem Tiger 20g (per Pcs)', 'Balsem yang diindikasikan untuk pegal-pegal, nyeri otot, keseleo, sakit kepala, juga untuk meredakan gatal dan iritasi akibat gigitan serangga.', 22.483, 'Balsem Tiger 20g (per Pcs).png', 4),
+(6, 'Degirol Loz 10 Tablet (per Strip)', 'DEGIROL LOZ 10 TABLET merupakan obat preparat mulut dan tenggorokan dengan kandungan dequalinium chloride. Produk ini dapat digunakan untuk sakit tenggorokan, peradangan pada rongga mulut dan tenggorokan, infeksi selaput lendir mulut.', 13.581, 'Degirol Loz 10 Tablet (per Strip).jpg', 2),
+(7, 'Tonicard Kapsul Lunak (per Strip)', 'Suplemen untuk memelihara kesehatan jantung', 230.569, 'Tonicard Kapsul Lunak (per Strip).jpg', 3),
+(8, 'Stimuno Orange Berry Sirup 60ml (per Botol)', 'STIMUNO ORANGE BERRY SYR 60ML merupakan produk herbal fitofarmaka, yang terbukti berkhasiat dan aman untuk meningkatkan kekebalan tubuh, berguna untuk mencegah sakit dan mempercepat penyembuhan', 30.972, 'Stimuno Orange Berry Sirup 60ml (per Botol).jpg', 1),
+(9, 'Erhair Df Hairgrow Serum 8ml (per Pcs)', 'ERHAIR DF HAIRGROW SERUM 8ML 7S merupakan serum yang diformulasikan untuk rambut rontok dan tipis. Diformulasikan untuk mengurangi kerontokan dan menumbuhkan rambut baru.', 32.63, 'Erhair Df Hairgrow Serum 8ml (per Pcs)', 5),
+(10, 'Kunir Cap Jamu Iboe (per Botol)', 'Kunir Cap Jamu Iboe merupakan suplemen herbal yang digunakan sebagai terapi penunjang supaya kekebalan sistem imun tubuh meningkat dan tidak mudah jatuh sakit.', 47.607, 'Kunir Cap Jamu Iboe (per Botol).png', 3);
 
 -- --------------------------------------------------------
 
@@ -78,9 +107,9 @@ CREATE TABLE `obat` (
 --
 
 CREATE TABLE `pesanan` (
-  `idpesanan` int(11) NOT NULL,
-  `tanggal` date DEFAULT NULL,
-  `iduser` int(11) NOT NULL
+  `idPesanan` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -91,11 +120,11 @@ CREATE TABLE `pesanan` (
 
 CREATE TABLE `supply` (
   `idSupply` int(11) NOT NULL,
-  `supplier` varchar(50) DEFAULT NULL,
-  `hargaBeli` int(6) DEFAULT NULL,
-  `hargaJual` int(6) DEFAULT NULL,
-  `hargaJualSatuan` int(6) DEFAULT NULL,
-  `stok` int(3) DEFAULT NULL,
+  `supplier` varchar(50) NOT NULL,
+  `hargaBeli` int(6) NOT NULL,
+  `hargaJual` int(6) NOT NULL,
+  `hargaJualSatuan` int(6) NOT NULL,
+  `stok` int(3) NOT NULL,
   `idObat` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -106,7 +135,7 @@ CREATE TABLE `supply` (
 --
 
 CREATE TABLE `user` (
-  `iduser` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
   `noWaUser` varchar(15) NOT NULL,
   `namaUser` varchar(30) NOT NULL,
   `passUser` int(32) NOT NULL
@@ -121,48 +150,94 @@ CREATE TABLE `user` (
 --
 ALTER TABLE `detail_pesanan`
   ADD PRIMARY KEY (`idDetail`),
-  ADD KEY `fk_detail_pesanan_pesanan1_idx` (`idpesanan`),
-  ADD KEY `fk_detail_pesanan_supply1_idx` (`idSupply`);
+  ADD KEY `idPesanan` (`idPesanan`),
+  ADD KEY `idSupply` (`idSupply`);
 
 --
 -- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
-  ADD PRIMARY KEY (`idkategori`);
+  ADD PRIMARY KEY (`idKategori`);
 
 --
 -- Indexes for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  ADD PRIMARY KEY (`idkeranjang`),
-  ADD KEY `fk_keranjang_pesanan1_idx` (`idpesanan`);
+  ADD PRIMARY KEY (`idKeranjang`),
+  ADD KEY `idPesanan` (`idPesanan`);
 
 --
 -- Indexes for table `obat`
 --
 ALTER TABLE `obat`
-  ADD PRIMARY KEY (`idobat`),
-  ADD KEY `fk_obat_kategori1_idx` (`idkategori`);
+  ADD PRIMARY KEY (`idObat`),
+  ADD KEY `idKategori` (`idKategori`);
 
 --
 -- Indexes for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  ADD PRIMARY KEY (`idpesanan`),
-  ADD KEY `fk_pesanan_user1_idx` (`iduser`);
+  ADD PRIMARY KEY (`idPesanan`),
+  ADD KEY `idUser` (`idUser`);
 
 --
 -- Indexes for table `supply`
 --
 ALTER TABLE `supply`
   ADD PRIMARY KEY (`idSupply`),
-  ADD KEY `fk_supply_obat1_idx` (`idObat`);
+  ADD KEY `idObat` (`idObat`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`iduser`);
+  ADD PRIMARY KEY (`idUser`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `detail_pesanan`
+--
+ALTER TABLE `detail_pesanan`
+  MODIFY `idDetail` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `idKategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `keranjang`
+--
+ALTER TABLE `keranjang`
+  MODIFY `idKeranjang` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `obat`
+--
+ALTER TABLE `obat`
+  MODIFY `idObat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `pesanan`
+--
+ALTER TABLE `pesanan`
+  MODIFY `idPesanan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `supply`
+--
+ALTER TABLE `supply`
+  MODIFY `idSupply` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -172,32 +247,32 @@ ALTER TABLE `user`
 -- Constraints for table `detail_pesanan`
 --
 ALTER TABLE `detail_pesanan`
-  ADD CONSTRAINT `fk_detail_pesanan_pesanan1` FOREIGN KEY (`idpesanan`) REFERENCES `pesanan` (`idpesanan`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_detail_pesanan_supply1` FOREIGN KEY (`idSupply`) REFERENCES `supply` (`idSupply`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `detail_pesanan_ibfk_1` FOREIGN KEY (`idPesanan`) REFERENCES `pesanan` (`idPesanan`),
+  ADD CONSTRAINT `detail_pesanan_ibfk_2` FOREIGN KEY (`idSupply`) REFERENCES `supply` (`idSupply`);
 
 --
 -- Constraints for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  ADD CONSTRAINT `fk_keranjang_pesanan1` FOREIGN KEY (`idpesanan`) REFERENCES `pesanan` (`idpesanan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `keranjang_ibfk_1` FOREIGN KEY (`idPesanan`) REFERENCES `pesanan` (`idPesanan`);
 
 --
 -- Constraints for table `obat`
 --
 ALTER TABLE `obat`
-  ADD CONSTRAINT `fk_obat_kategori1` FOREIGN KEY (`idkategori`) REFERENCES `kategori` (`idkategori`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `obat_ibfk_1` FOREIGN KEY (`idKategori`) REFERENCES `kategori` (`idKategori`);
 
 --
 -- Constraints for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  ADD CONSTRAINT `fk_pesanan_user1` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `pesanan_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`);
 
 --
 -- Constraints for table `supply`
 --
 ALTER TABLE `supply`
-  ADD CONSTRAINT `fk_supply_obat1` FOREIGN KEY (`idObat`) REFERENCES `obat` (`idobat`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `supply_ibfk_1` FOREIGN KEY (`idObat`) REFERENCES `obat` (`idObat`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

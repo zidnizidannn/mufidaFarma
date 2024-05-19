@@ -12,10 +12,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($password == $confirmPassword) {
         $sha = hash('sha256', $password);
-        $sql = "INSERT INTO user (username, whatsapp, password) VALUES ('$name', '$whatsapp', '$sha')";
+        $sql = "INSERT INTO user (idUser, noWaUser, passUser) VALUES ('$name', '$whatsapp', '$sha')";
         mysqli_query($conn, $sql);
         $_SESSION['username'] = $name;
-        header("Location: dashboard.php");
+        header("Location: index.php");
         exit();
     } else {
         echo "Password tidak cocok dengan konfirmasi password";

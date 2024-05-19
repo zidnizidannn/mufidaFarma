@@ -27,10 +27,7 @@
                 <div class="card" style="border-radius: 1rem;">
                     <div class="row g-0">
                         <div class="col-md-12 col-lg-5">
-                            <div class="col1 d-flex flex-column justify-content-center text-center " style="width: 100%; height: 650px; background-color: lightgray; border-radius: 1rem 0 0 1rem">
-                                <span class="fa-solid fa-mortar-pestle fa-3x"></span>
-                                <span class="">image here</span>
-                            </div>
+                            <div class="col1 d-flex flex-column justify-content-center text-center " style="width: 100%; height: 650px; background-image: url(/images/login.svg); background-size: cover; ; border-radius: 1rem 0 0 1rem"></div>
                         </div>
                         <div class="col-md-12 col-lg-7 d-flex align-items-center">
                             <div class="card1 card-body p-4 p-lg-5 d-flex flex-column align-items-center">

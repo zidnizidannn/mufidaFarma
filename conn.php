@@ -3,7 +3,7 @@ function connectDatabase() {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "mufida_farma";
+    $dbname = "app_mufidafarma";
 
     $conn = mysqli_connect($servername, $username, $password, $dbname);
 
