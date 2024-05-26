@@ -39,17 +39,38 @@ if (!$obatResults) {
         th {
             text-align: center;
         }
+        td img {
+            width: 50px;
+        }
+        .action-buttons a {
+            margin: 0 5px;
+        }
+        .add-button, .navigation-buttons {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="text-center">Kelola Obat</h1>
+        <div class="text-right navigation-buttons">
+            <a href="indexAdmin.php" class="btn btn-secondary">Kembali ke Dashboard Admin</a>
+            <a href="managePesanan.php" class="btn btn-info">Kelola Pesanan</a>
+            <a href="manageUser.php" class="btn btn-info">Kelola Pengguna</a>
+        </div>
+        <div class="text-right add-button">
+            <a href="addObat.php" class="btn btn-success">Tambah Obat Baru</a>
+        </div>
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nama Obat</th>
                     <th>Deskripsi</th>
+                    <th>Komposisi</th>
+                    <th>Indikasi</th>
+                    <th>Dosis</th>
+                    <th>Efek Samping</th>
                     <th>Harga</th>
                     <th>Gambar</th>
                     <th>ID Kategori</th>
@@ -62,18 +83,21 @@ if (!$obatResults) {
                     <td><?php echo $obat['idObat']; ?></td>
                     <td><?php echo $obat['namaObat']; ?></td>
                     <td><?php echo $obat['desObat']; ?></td>
+                    <td><?php echo $obat['komposisiObat']; ?></td>
+                    <td><?php echo $obat['indikasiObat']; ?></td>
+                    <td><?php echo $obat['dosisObat']; ?></td>
+                    <td><?php echo $obat['efekObat']; ?></td>
                     <td><?php echo $obat['hargaObat']; ?></td>
-                    <td><img src="/images/<?php echo $obat['gambarObat']; ?>" alt="Gambar Obat" style="width: 50px;"></td>
+                    <td><img src="/images/<?php echo $obat['gambarObat']; ?>" alt="Gambar Obat"></td>
                     <td><?php echo $obat['idKategori']; ?></td>
                     <td class="action-buttons">
-                        <a href="updateObat.php?id=<?php echo $obat['idObat']; ?>" class="btn btn-warning btn-sm mr-1"><i class="fas fa-edit"></i></a>
-                        <a href="deleteObat.php?id=<?php echo $obat['idObat']; ?>" class="btn btn-danger btn-sm ml-1"><i class="fas fa-trash-alt"></i></a>
+                        <a href="updateObat.php?id=<?php echo $obat['idObat']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                        <a href="deleteObat.php?id=<?php echo $obat['idObat']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
-        <a href="addObat.php" class="btn btn-success">Tambah Obat Baru</a>
     </div>
 </body>
 </html>

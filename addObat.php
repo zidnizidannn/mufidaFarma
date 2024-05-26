@@ -32,7 +32,7 @@
 
 <body>
     <!-- Header -->
-    <?php include 'layouts/header.html' ?>
+    <?php include 'layouts/header.html'; ?>
 
     <content class="d-block">
         <div class="admin-content">
@@ -48,6 +48,22 @@
                     <textarea class="form-control" id="desObat" name="desObat" rows="3" required></textarea>
                 </div>
                 <div class="form-group">
+                    <label for="komposisiObat">Komposisi Obat:</label>
+                    <textarea class="form-control" id="komposisiObat" name="komposisiObat" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="indikasiObat">Indikasi Obat:</label>
+                    <textarea class="form-control" id="indikasiObat" name="indikasiObat" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dosisObat">Dosis Obat:</label>
+                    <textarea class="form-control" id="dosisObat" name="dosisObat" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="efekObat">Efek Samping Obat:</label>
+                    <textarea class="form-control" id="efekObat" name="efekObat" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
                     <label for="hargaObat">Harga Obat:</label>
                     <input type="number" class="form-control" id="hargaObat" name="hargaObat" required>
                 </div>
@@ -55,11 +71,19 @@
                     <label for="idKategori">Kategori Obat:</label>
                     <select class="form-control" id="idKategori" name="idKategori" required>
                         <option value="">Pilih Kategori</option>
-                        <option value="1">Obat Cair</option>
-                        <option value="2">Obat Tablet</option>
+                        <?php
+                        include 'conn.php';
+                        $conn = connectDatabase();
+                        $kategoriQuery = "SELECT idKategori, kategoriObat FROM kategori";
+                        $kategoriResults = mysqli_query($conn, $kategoriQuery);
+                        while ($kategori = mysqli_fetch_assoc($kategoriResults)) {
+                            echo "<option value='" . $kategori['idKategori'] . "'>" . $kategori['kategoriObat'] . "</option>";
+                        }
+                        mysqli_close($conn);
+                        ?>
                     </select>
                 </div>
-                <div class="form-group">
+                                <div class="form-group">
                     <label for="gambarObat">Gambar Obat:</label>
                     <input type="file" class="form-control-file" id="gambarObat" name="gambarObat" required>
                 </div>
@@ -72,7 +96,7 @@
     </content>
     <!-- Footer -->
     <div class="mt-auto position-sticky bottom-0">
-        <?php include 'layouts/footer.html' ?>
+        <?php include 'layouts/footer.html'; ?>
     </div>
 
     <!-- Success Popup Script -->

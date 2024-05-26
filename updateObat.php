@@ -10,12 +10,12 @@ include 'conn.php';
 $conn = connectDatabase();
 
 if (!isset($_GET['id'])) {
-    header("Location: halaman_sebelumnya.php"); 
+    header("Location: halaman_sebelumnya.php");
     exit();
 }
 
 // Jika ID obat diteruskan, tangkap nilainya
-$idObat = $_GET['id'];
+$idObat = mysqli_real_escape_string($conn, $_GET['id']);
 
 // Query untuk mendapatkan data obat berdasarkan ID
 $obatQuery = "SELECT * FROM obat WHERE idObat = $idObat";
@@ -31,28 +31,45 @@ if (mysqli_num_rows($obatResult) == 0) {
 // Ambil data obat dari hasil query
 $obat = mysqli_fetch_assoc($obatResult);
 
+// Query untuk mendapatkan daftar kategori obat
+$queryKategori = "SELECT * FROM kategori";
+$resultKategori = mysqli_query($conn, $queryKategori);
+
 // Proses update obat jika form disubmit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Tangkap data yang dikirim melalui form
-    $namaObat = $_POST['namaObat'];
-    $desObat = $_POST['desObat'];
-    $hargaObat = $_POST['hargaObat'];
-    $idKategori = $_POST['idKategori'];
+    $namaObat = mysqli_real_escape_string($conn, $_POST['namaObat']);
+    $desObat = mysqli_real_escape_string($conn, $_POST['desObat']);
+    $hargaObat = mysqli_real_escape_string($conn, $_POST['hargaObat']);
+    $idKategori = mysqli_real_escape_string($conn, $_POST['idKategori']);
+    $komposisiObat = mysqli_real_escape_string($conn, $_POST['komposisiObat']);
+    $indikasiObat = mysqli_real_escape_string($conn, $_POST['indikasiObat']);
+    $dosisObat = mysqli_real_escape_string($conn, $_POST['dosisObat']);
+    $efekObat = mysqli_real_escape_string($conn, $_POST['efekObat']);
 
     // Query untuk melakukan update data obat
-    $updateQuery = "UPDATE obat SET namaObat = '$namaObat', desObat = '$desObat', hargaObat = '$hargaObat', idKategori = '$idKategori' WHERE idObat = $idObat";
+    $updateQuery = "UPDATE obat SET 
+                    namaObat = '$namaObat', 
+                    desObat = '$desObat', 
+                    komposisiObat = '$komposisiObat', 
+                    indikasiObat = '$indikasiObat', 
+                    dosisObat = '$dosisObat', 
+                    efekObat = '$efekObat', 
+                    hargaObat = '$hargaObat', 
+                    idKategori = '$idKategori' 
+                    WHERE idObat = $idObat";
 
     // Jalankan query update
     $result = mysqli_query($conn, $updateQuery);
 
     if ($result) {
         // Jika update berhasil, alihkan ke halaman daftar obat atau tampilkan pesan sukses
-        header("Location: manageObat.php?success=true");
+        echo '<script>window.location.href = "manageObat.php?success=true";</script>';
         exit();
     } else {
         // Jika terjadi kesalahan, tampilkan pesan error atau lakukan penanganan yang sesuai
         echo "Error: " . mysqli_error($conn);
-    }
+    }    
 }
 
 ?>
@@ -89,19 +106,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <textarea class="form-control" id="desObat" name="desObat" rows="3" required><?php echo $obat['desObat']; ?></textarea>
             </div>
             <div class="form-group">
+                <label for="komposisiObat">Komposisi Obat:</label>
+                <textarea class="form-control" id="komposisiObat" name="komposisiObat" rows="3" required><?php echo $obat['komposisiObat']; ?></textarea>
+            </div>
+            <div class="form-group">
+                <label for="indikasiObat">Indikasi Obat:</label>
+                <textarea class="form-control" id="indikasiObat" name="indikasiObat" rows="3" required><?php echo $obat['indikasiObat']; ?></textarea>
+            </div>
+            <div class="form-group">
+                <label for="dosisObat">Dosis Obat:</label>
+                <input type="text" class="form-control" id="dosisObat" name="dosisObat" value="<?php echo $obat['dosisObat']; ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="efekObat">Efek Obat:</label>
+                <textarea class="form-control" id="efekObat" name="efekObat" rows="3" required><?php echo $obat['efekObat']; ?></textarea>
+            </div>
+            <div class="form-group">
                 <label for="hargaObat">Harga Obat:</label>
                 <input type="number" class="form-control" id="hargaObat" name="hargaObat" value="<?php echo $obat['hargaObat']; ?>" required>
             </div>
             <div class="form-group">
                 <label for="idKategori">Kategori Obat:</label>
                 <select class="form-control" id="idKategori" name="idKategori" required>
-                    <option value="">Pilih Kategori</option>
-                    <option value="1" <?php echo ($obat['idKategori'] == 1) ? 'selected' : ''; ?>>Obat Cair</option>
-                    <option value="2" <?php echo ($obat['idKategori'] == 2) ? 'selected' : ''; ?>>Obat Tablet</option>
+                <option value="">Pilih Kategori</option>
+                <?php
+                // Loop melalui hasil query kategori dan buat opsi dropdown
+                if (mysqli_num_rows($resultKategori) > 0) {
+                    while ($row = mysqli_fetch_assoc($resultKategori)) {
+                        // Setiap baris kategori menjadi opsi dropdown
+                        $selected = ($obat['idKategori'] == $row['idKategori']) ? 'selected' : '';
+                        echo "<option value=\"" . $row['idKategori'] . "\" $selected>" . htmlspecialchars($row['namaKategori']) . "</option>";
+                    }
+                } else {
+                    echo "<option value=''>Tidak ada kategori yang tersedia</option>";
+                }
+                ?>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Update Obat</button>
-        </form>
-    </div>
+            </form>
+        </div>
 </body>
 </html>
+
