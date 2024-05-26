@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="icon" type ="image" href=""> -->
     <link rel="stylesheet" href="/assets/bootstrap.css">
+    <link rel="icon" href="/images/mufidasvg.svg">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/fredoka.css">
     <script src="/assets/bootstrap.bundle.min.js"></script>
@@ -13,6 +15,10 @@
     <style>
         * {
             /* border: 1px solid red; */
+        }
+        a{
+            text-decoration: none;
+            color: black;
         }
     </style>
 </head>
@@ -43,11 +49,11 @@
                         Kategori Obat
                     </button>
                     <ul class="dropdown-menu w-100 text-center ">
-                        <li><a class="dropdown-item" href="#">Obat cair</a></li>
-                        <li><a class="dropdown-item" href="#">Obat tablet</a></li>
-                        <li><a class="dropdown-item" href="#">Obat kapsul</a></li>
-                        <li><a class="dropdown-item" href="#">Obat oles</a></li>
-                        <li><a class="dropdown-item" href="#">Obat tetes</a></li>
+                        <li><a class="dropdown-item kategori-obat" href="#" data-kategori="1">Obat cair</a></li>
+                        <li><a class="dropdown-item kategori-obat" href="#" data-kategori="2">Obat tablet</a></li>
+                        <li><a class="dropdown-item kategori-obat" href="#" data-kategori="3">Obat kapsul</a></li>
+                        <li><a class="dropdown-item kategori-obat" href="#" data-kategori="4">Obat oles</a></li>
+                        <li><a class="dropdown-item kategori-obat" href="#" data-kategori="5">Obat tetes</a></li>
                     </ul>
                 </div>
                 <div class="dropdown">
@@ -60,7 +66,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-9 d-flex flex-wrap justify-content-around" style="font-size: 0.75rem;">
+            <div class="col-9 d-flex flex-wrap justify-content-around" style="font-size: 0.75;">
                 <?php
                 getdata(1, 50);
                 ?>
@@ -68,6 +74,39 @@
         </div>
     </content>
     <?php include 'layouts/footer.html' ?>
+    <script>
+        const kategoriLinks = document.querySelectorAll('.kategori-obat');
+
+        kategoriLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Mencegah tautan berpindah halaman
+                const kategoriId = this.dataset.kategori;
+                loadProdukByKategori(kategoriId);
+            });
+        });
+
+        function loadProdukByKategori(kategoriId) {
+            // Kirim permintaan ke server menggunakan AJAX
+            fetch(`get_produk.php?kategori=${kategoriId}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Tampilkan data produk di halaman web
+                    const produkContainer = document.querySelector('.produk-container');
+                    produkContainer.innerHTML = '';
+                    data.forEach(produk => {
+                        produkContainer.innerHTML += `
+          <div class="produk">
+            <img src="${produk.gambarObat}" alt="${produk.namaObat}">
+            <h3>${produk.namaObat}</h3>
+            <p>${produk.desObat}</p>
+            <p>Rp. ${produk.hargaObat}</p>
+          </div>
+        `;
+                    });
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
 </body>
 
 </html>

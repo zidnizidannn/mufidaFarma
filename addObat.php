@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +10,6 @@
     <script src="https://kit.fontawesome.com/2a6c7edf30.js" crossorigin="anonymous"></script>
     <title>Admin - Mufida Farma</title>
     <style>
-        /* Padding untuk elemen-elemen HTML */
         body {
             padding-top: 20px;
             padding-bottom: 20px;
@@ -25,42 +23,10 @@
             margin-bottom: 20px;
         }
 
-        .form-group {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center; /* Menyamakan vertikal */
-        }
-
-        .form-group label {
-            flex: 0 0 20%; /* Lebar label */
-            margin-right: 10px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            flex: 0 0 70%; /* Lebar input */
-            margin-right: 10px;
-        }
-
-        .form-group .form-control-file {
-            flex: 0 0 70%; /* Lebar input file */
-        }
-
-        .btn-container {
-            margin-top: 10px; /* Jarak antara form dan tombol */
-        }
-
-        .btn-container button {
-            margin-right: 10px;
-        }
-
-        content,
-        body {
+        content, body {
             margin-bottom: 0;
             padding-bottom: 0;
         }
-
     </style>
 </head>
 
@@ -105,7 +71,9 @@
         </div>
     </content>
     <!-- Footer -->
-    <?php include 'layouts/footer.html' ?>
+    <div class="mt-auto position-sticky bottom-0">
+        <?php include 'layouts/footer.html' ?>
+    </div>
 
     <!-- Success Popup Script -->
     <script>
