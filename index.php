@@ -1,3 +1,7 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['idUser']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
