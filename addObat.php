@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,31 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/bootstrap.css">
-    <link rel="stylesheet" href="/css/style.css"> 
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/fredoka.css">
     <script src="/assets/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/2a6c7edf30.js" crossorigin="anonymous"></script>
     <title>Admin - Mufida Farma</title>
     <style>
+        /* Padding untuk elemen-elemen HTML */
+        body {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
 
-/* Padding untuk elemen-elemen HTML */
-body {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
+        .admin-content {
+            padding: 20px;
+        }
 
-.admin-content {
-    padding: 20px;
-}
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-.form-group {
-    margin-bottom: 20px;
-}
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center; /* Menyamakan vertikal */
+        }
 
-content, body {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
+        .form-group label {
+            flex: 0 0 20%; /* Lebar label */
+            margin-right: 10px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            flex: 0 0 70%; /* Lebar input */
+            margin-right: 10px;
+        }
+
+        .form-group .form-control-file {
+            flex: 0 0 70%; /* Lebar input file */
+        }
+
+        .btn-container {
+            margin-top: 10px; /* Jarak antara form dan tombol */
+        }
+
+        .btn-container button {
+            margin-right: 10px;
+        }
+
+        content,
+        body {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
 
     </style>
 </head>
@@ -68,7 +97,10 @@ content, body {
                     <label for="gambarObat">Gambar Obat:</label>
                     <input type="file" class="form-control-file" id="gambarObat" name="gambarObat" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Tambahkan Obat</button>
+                <div class="form-group btn-container">
+                    <button type="submit" class="btn btn-primary">Tambahkan Obat</button>
+                    <a href="manageObat.php" class="btn btn-secondary">Kelola Obat</a>
+                </div>
             </form>
         </div>
     </content>
@@ -77,7 +109,7 @@ content, body {
 
     <!-- Success Popup Script -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             if (new URLSearchParams(window.location.search).get("success") === "true") {
                 alert("Obat berhasil ditambahkan.");
             }
