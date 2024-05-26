@@ -55,10 +55,6 @@ if (!$obatResults) {
         <h1 class="text-center">Kelola Obat</h1>
         <div class="text-right navigation-buttons">
             <a href="indexAdmin.php" class="btn btn-secondary">Kembali ke Dashboard Admin</a>
-            <a href="managePesanan.php" class="btn btn-info">Kelola Pesanan</a>
-            <a href="manageUser.php" class="btn btn-info">Kelola Pengguna</a>
-        </div>
-        <div class="text-right add-button">
             <a href="addObat.php" class="btn btn-success">Tambah Obat Baru</a>
         </div>
         <table class="table table-bordered">

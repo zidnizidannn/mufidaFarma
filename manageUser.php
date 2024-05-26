@@ -17,6 +17,7 @@ if (!$users) {
     die("Query Error (users): " . mysqli_error($conn));
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,10 +36,21 @@ if (!$users) {
             margin-top: 20px;
         }
     </style>
+    <script>
+        function confirmDelete(userId) {
+            const confirmation = confirm("Apakah Anda yakin ingin menghapus pengguna ini?");
+            if (confirmation) {
+                window.location.href = "deleteUser.php?id=" + userId;
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container">
     <h1 class="text-center">Kelola Pengguna</h1>
+    <div class="text-right navigation-buttons">
+            <a href="indexAdmin.php" class="btn btn-secondary">Kembali ke Dashboard Admin</a>
+    </div><br>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -57,8 +69,7 @@ if (!$users) {
                 <td><?php echo $user['namaUser']; ?></td>
                 <td><?php echo $user['passUser']; ?></td>
                 <td>
-                    <a href="editUser.php?id=<?php echo $user['idUser']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="deleteUser.php?id=<?php echo $user['idUser']; ?>" class="btn btn-danger btn-sm">Delete</a>
+                    <button onclick="confirmDelete(<?php echo $user['idUser']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                 </td>
             </tr>
         <?php endwhile; ?>
