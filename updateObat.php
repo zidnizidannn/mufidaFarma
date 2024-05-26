@@ -23,7 +23,8 @@ $obatResult = mysqli_query($conn, $obatQuery);
 
 // Periksa apakah obat dengan ID yang diteruskan ada
 if (mysqli_num_rows($obatResult) == 0) {
-    header("Location: halaman_sebelumnya.php");
+    // Jika tidak ada obat dengan ID tersebut, alihkan kembali atau tampilkan pesan kesalahan
+    header("Location: halaman_sebelumnya.php"); // Ganti "halaman_sebelumnya.php" dengan halaman yang sesuai
     exit();
 }
 
@@ -36,6 +37,7 @@ $resultKategori = mysqli_query($conn, $queryKategori);
 
 // Proses update obat jika form disubmit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Tangkap data yang dikirim melalui form
     $namaObat = mysqli_real_escape_string($conn, $_POST['namaObat']);
     $desObat = mysqli_real_escape_string($conn, $_POST['desObat']);
     $hargaObat = mysqli_real_escape_string($conn, $_POST['hargaObat']);
@@ -45,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dosisObat = mysqli_real_escape_string($conn, $_POST['dosisObat']);
     $efekObat = mysqli_real_escape_string($conn, $_POST['efekObat']);
 
+    // Query untuk melakukan update data obat
     $updateQuery = "UPDATE obat SET 
                     namaObat = '$namaObat', 
                     desObat = '$desObat', 
@@ -56,12 +59,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     idKategori = '$idKategori' 
                     WHERE idObat = $idObat";
 
+    // Jalankan query update
     $result = mysqli_query($conn, $updateQuery);
 
     if ($result) {
+        // Jika update berhasil, alihkan ke halaman daftar obat atau tampilkan pesan sukses
         echo '<script>window.location.href = "manageObat.php?success=true";</script>';
         exit();
     } else {
+        // Jika terjadi kesalahan, tampilkan pesan error atau lakukan penanganan yang sesuai
         echo "Error: " . mysqli_error($conn);
     }    
 }
@@ -93,31 +99,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form action="" method="POST">
             <div class="form-group">
                 <label for="namaObat">Nama Obat:</label>
-                <input type="text" class="form-control" id="namaObat" name="namaObat" value="<?php echo htmlspecialchars($obat['namaObat']); ?>" required>
+                <input type="text" class="form-control" id="namaObat" name="namaObat" value="<?php echo $obat['namaObat']; ?>" required>
             </div>
             <div class="form-group">
                 <label for="desObat">Deskripsi Obat:</label>
-                <textarea class="form-control" id="desObat" name="desObat" rows="3" required><?php echo htmlspecialchars($obat['desObat']); ?></textarea>
+                <textarea class="form-control" id="desObat" name="desObat" rows="3" required><?php echo $obat['desObat']; ?></textarea>
             </div>
             <div class="form-group">
                 <label for="komposisiObat">Komposisi Obat:</label>
-                <textarea class="form-control" id="komposisiObat" name="komposisiObat" rows="3" required><?php echo htmlspecialchars($obat['komposisiObat']); ?></textarea>
+                <textarea class="form-control" id="komposisiObat" name="komposisiObat" rows="3" required><?php echo $obat['komposisiObat']; ?></textarea>
             </div>
             <div class="form-group">
                 <label for="indikasiObat">Indikasi Obat:</label>
-                <textarea class="form-control" id="indikasiObat" name="indikasiObat" rows="3" required><?php echo htmlspecialchars($obat['indikasiObat']); ?></textarea>
+                <textarea class="form-control" id="indikasiObat" name="indikasiObat" rows="3" required><?php echo $obat['indikasiObat']; ?></textarea>
             </div>
             <div class="form-group">
                 <label for="dosisObat">Dosis Obat:</label>
-                <input type="text" class="form-control" id="dosisObat" name="dosisObat" value="<?php echo htmlspecialchars($obat['dosisObat']); ?>" required>
+                <input type="text" class="form-control" id="dosisObat" name="dosisObat" value="<?php echo $obat['dosisObat']; ?>" required>
             </div>
             <div class="form-group">
                 <label for="efekObat">Efek Obat:</label>
-                <textarea class="form-control" id="efekObat" name="efekObat" rows="3" required><?php echo htmlspecialchars($obat['efekObat']); ?></textarea>
+                <textarea class="form-control" id="efekObat" name="efekObat" rows="3" required><?php echo $obat['efekObat']; ?></textarea>
             </div>
             <div class="form-group">
                 <label for="hargaObat">Harga Obat:</label>
-                <input type="number" class="form-control" id="hargaObat" name="hargaObat" value="<?php echo htmlspecialchars($obat['hargaObat']); ?>" required>
+                <input type="number" class="form-control" id="hargaObat" name="hargaObat" value="<?php echo $obat['hargaObat']; ?>" required>
             </div>
             <div class="form-group">
                 <label for="idKategori">Kategori Obat:</label>
@@ -129,18 +135,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     while ($row = mysqli_fetch_assoc($resultKategori)) {
                         // Setiap baris kategori menjadi opsi dropdown
                         $selected = ($obat['idKategori'] == $row['idKategori']) ? 'selected' : '';
-                        echo "<option value=\"" . htmlspecialchars($row['idKategori']) . "\" $selected>" . htmlspecialchars($row['namaKategori']) . "</option>";
+                        echo "<option value=\"" . $row['idKategori'] . "\" $selected>" . htmlspecialchars($row['kategoriObat']) . "</option>";
                     }
                 } else {
                     echo "<option value=''>Tidak ada kategori yang tersedia</option>";
                 }
                 ?>
                 </select>
-            </div> <br>
-            <div>
-                <button type="submit" class="btn btn-primary">Update Obat</button>  
             </div>
-        </form>
-    </div>
+            <button type="submit" class="btn btn-primary">Update Obat</button>
+            </form>
+        </div>
 </body>
 </html>
+
