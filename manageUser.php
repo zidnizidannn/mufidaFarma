@@ -49,7 +49,7 @@ if (!$users) {
 <div class="container">
     <h1 class="text-center">Kelola Pengguna</h1>
     <div class="text-right navigation-buttons">
-            <a href="indexAdmin.php" class="btn btn-secondary">Kembali ke Dashboard Admin</a>
+            <a href="index.php" class="btn btn-lg fa fa-arrow-left"></a>
     </div><br>
     <table class="table table-bordered">
         <thead>

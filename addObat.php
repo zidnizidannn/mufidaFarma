@@ -36,7 +36,7 @@
 
     <content class="d-block">
         <div class="admin-content">
-            <!-- Form untuk menambahkan obat -->
+
             <h3>Tambah Obat</h3>
             <form action="getObat.php" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="form-group">
                     <label for="hargaObat">Harga Obat:</label>
-                    <input type="number" class="form-control" id="hargaObat" name="hargaObat" required>
+                    <input type="number" step="any" class="form-control" id="hargaObat" name="hargaObat" required>
                 </div>
                 <div class="form-group">
                     <label for="idKategori">Kategori Obat:</label>
@@ -99,7 +99,6 @@
         <?php include 'layouts/footer.html'; ?>
     </div>
 
-    <!-- Success Popup Script -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             if (new URLSearchParams(window.location.search).get("success") === "true") {

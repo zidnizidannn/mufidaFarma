@@ -5,14 +5,14 @@ include 'conn.php';
 $conn = connectDatabase();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['inputName'];
+    $name = $_POST['inputUsername'];
     $whatsapp = $_POST['inputNumber'];
     $password = $_POST['inputPassword'];
     $confirmPassword = $_POST['confirmPassword'];
 
     if ($password == $confirmPassword) {
         $sha = hash('sha256', $password);
-        $sql = "INSERT INTO user (idUser, noWaUser, passUser) VALUES ('$name', '$whatsapp', '$sha')";
+        $sql = "INSERT INTO user (noWaUser, namaUser, passUser) VALUES ('$whatsapp', '$name', '$sha')";
         mysqli_query($conn, $sql);
         $_SESSION['username'] = $name;
         header("Location: index.php");

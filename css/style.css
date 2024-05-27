@@ -67,3 +67,7 @@ content>.topSell,
         border-radius: 1rem 1rem 0 0 !important;
     }
 }
+
+.btn-lg{
+    font-size: x-large;
+}

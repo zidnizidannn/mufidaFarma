@@ -42,7 +42,7 @@
                                 <span class="mb-3 mt-4">Silahkan masukkan data anda</span>
                                 <div class="form-group mb-3 ">
                                     <label for="inputUsername">Username</label>
-                                    <input type="text" class="form-control" name="inputUsername" id="inputName" placeholder="Masukkan nama" style="">
+                                    <input type="text" class="form-control" name="inputUsername" id="inputUsername" placeholder="Masukkan nama" style="">
                                 </div>
 
                                 <div class="form-group mb-3 ">
@@ -69,8 +69,8 @@
 
                             <form action="login.php" method="post" class="card-body p-4 p-lg-5 d-flex flex-column align-items-center d-none" id="login">
                                 <div class="form-group mb-3 ">
-                                    <label for="number">Nomor Whatsapp</label>
-                                    <input type="number" class="form-control" name="number" id="inputNumber" placeholder="Maukkan nomor whatsapp" style="">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" name="username" id="inputNumber" placeholder="Maukkan username" style="">
                                 </div>
 
                                 <div class="form-group mb-3 ">

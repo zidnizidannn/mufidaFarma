@@ -5,19 +5,20 @@ include 'conn.php';
 $conn = connectDatabase();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $whatsapp = $_POST['number'];
+    // $whatsapp = $_POST['number'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
     // Cek jika username dan password adalah admin
-    if ($whatsapp === '0987654321' && $password === 'admin') {
+    if ($username === 'admin' && $password === 'admin') {
         $_SESSION['username'] = 'admin';
-        header("Location: indexAdmin.php");
+        header("Location: index.php");
         exit();
     }
 
     $sha = hash('sha256', $password);
 
-    $sql = "SELECT * FROM user WHERE noWaUser='$whatsapp' AND passUser='$sha'";
+    $sql = "SELECT * FROM user WHERE namaUser='$username' AND passUser='$sha'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {

@@ -4,9 +4,9 @@
     }
 </style>
 <header class="header d-flex align-items-center ps-4 pe-4 position-sticky top-0 h-auto w-100 p-1" style="background-color: white;">
-    <div class="logos m-1 ">
+    <a href="/index.php" class="logos m-1 ">
         <img src="/images/mufidasvg.svg" style="width: 130px;">
-    </div>
+    </a>
 
     <div class="ms-auto d-flex align-items-center">
         <?php if (!$isLoggedIn) : ?>

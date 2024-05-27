@@ -1,6 +1,7 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['idUser']);
+$isAdmin = isset($_SESSION['username']) && $_SESSION['username'] === 'admin';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +21,8 @@ $isLoggedIn = isset($_SESSION['idUser']);
         * {
             /* border: 1px solid red; */
         }
-        a{
+
+        a {
             text-decoration: none;
             color: black;
         }
@@ -29,7 +31,13 @@ $isLoggedIn = isset($_SESSION['idUser']);
 
 <body>
     <!-- header -->
-    <?php include 'layouts/header.php' ?>
+    <?php
+    if ($isAdmin) {
+        include 'layouts/headerAdmin.php';
+    } else {
+        include 'layouts/header.php';
+    }
+    ?>
 
     <content class="d-block">
         <?php include 'layouts/banner.html' ?>
@@ -48,7 +56,7 @@ $isLoggedIn = isset($_SESSION['idUser']);
                 <div class="d-block text-light p-2 " style="background-color: teal;">Filter</div>
 
                 <!-- filter kategori -->
-                <div class="dropdown">
+                <!-- <div class="dropdown">
                     <button class="btn dropdown-toggle w-100 " style="border: 1px solid black;" data-bs-toggle="dropdown" aria-expanded="true">
                         Kategori Obat
                     </button>
@@ -59,20 +67,27 @@ $isLoggedIn = isset($_SESSION['idUser']);
                         <li><a class="dropdown-item kategori-obat" href="#" data-kategori="4">Obat oles</a></li>
                         <li><a class="dropdown-item kategori-obat" href="#" data-kategori="5">Obat tetes</a></li>
                     </ul>
-                </div>
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle w-100 " style="border: 1px solid black;" data-bs-toggle="dropdown" aria-expanded="true">
-                        Urutkan
-                    </button>
-                    <ul class="dropdown-menu w-100 text-center ">
-                        <li><a class="dropdown-item" href="#">A - Z</a></li>
-                        <li><a class="dropdown-item" href="#">Z - A</a></li>
-                    </ul>
-                </div>
+                </div> -->
+
+                <select class="form-select" aria-label="Kategori" id="kategori">
+                    <option selected>Kategori</option>
+                    <option value="1">Obat cair</option>
+                    <option value="2">Obat tablet</option>
+                    <option value="3">Obat kapsul</option>
+                    <option value="4">Obat oles</option>
+                    <option value="5">Obat tetes</option>
+                </select>
+
+                <select class="form-select" aria-label="Urutkan" id="urutkan">
+                    <option selected>Urutkan</option>
+                    <option value="1">A - Z</option>
+                    <option value="2">Z - A</option>
+                </select>
             </div>
             <div class="col-9 d-flex flex-wrap justify-content-around" style="font-size: 0.75;">
                 <?php
-                getdata(1, 50);
+                $order = isset($_GET['order']) ? $_GET['order'] : 1;
+                getdata(1, 50, $order);
                 ?>
             </div>
         </div>
@@ -110,6 +125,13 @@ $isLoggedIn = isset($_SESSION['idUser']);
                 })
                 .catch(error => console.error(error));
         }
+
+        const urutkanSelect = document.getElementById('urutkan');
+
+        urutkanSelect.addEventListener('change', function() {
+            const order = this.value;
+            window.location.href = `index.php?order=${order}`;
+        });
     </script>
 </body>
 

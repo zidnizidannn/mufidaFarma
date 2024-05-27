@@ -1,10 +1,12 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['idUser']);
+$isAdmin = isset($_SESSION['username']) && $_SESSION['username'] === 'admin';
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +23,15 @@ $isLoggedIn = isset($_SESSION['idUser']);
         }
     </style>
 </head>
-<body class=    "d-flex flex-column min-vh-100">
-    <?php include 'layouts/header.php' ?>
+
+<body class="d-flex flex-column min-vh-100">
+    <?php
+    if ($isAdmin) {
+        include 'layouts/headerAdmin.php';
+    } else {
+        include 'layouts/header.php';
+    }
+    ?>
     <main>
         <!-- Detail Obat Section -->
         <section class="detail-obat-section">
@@ -40,7 +49,7 @@ $isLoggedIn = isset($_SESSION['idUser']);
                 ?>
                         <div class="col-3" id="gambar">
                             <div class="d-flex justify-content-center  ">
-                            <img src='<?= 'images/'.$row["gambarObat"] ?>' class='gambar w-75' alt='' style="">
+                                <img src='<?= 'images/' . $row["gambarObat"] ?>' class='gambar w-75' alt='' style="">
                             </div>
                         </div>
                         <div class="col-6 mt-4" id="detail">
@@ -49,16 +58,16 @@ $isLoggedIn = isset($_SESSION['idUser']);
                                 <p><?php echo $row['desObat']; ?></p>
                                 <hr>
                                 <p class="h5">Komposisi</p>
-                                <p><?php echo nl2br($row['komposisiObat']);?></p>
+                                <p><?php echo nl2br($row['komposisiObat']); ?></p>
                                 <hr>
                                 <p class="h5">Indikasi/kegunaan</p>
-                                <p><?php echo nl2br($row['indikasiObat']);?></p>
+                                <p><?php echo nl2br($row['indikasiObat']); ?></p>
                                 <hr>
                                 <p class="h5">Dosis</p>
-                                <p><?php echo nl2br($row['dosisObat']);?></p>
+                                <p><?php echo nl2br($row['dosisObat']); ?></p>
                                 <hr>
                                 <p class="h5">Efek Samping</p>
-                                <p><?php echo nl2br($row['efekObat']);?></p>
+                                <p><?php echo nl2br($row['efekObat']); ?></p>
                                 <h3>Harga: Rp.<?php echo $row['hargaObat']; ?></h3>
                             </div>
                         </div>
@@ -69,7 +78,7 @@ $isLoggedIn = isset($_SESSION['idUser']);
                             $result = $conn->query($query);
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                    ?>
+                            ?>
                                     <div class="card mb-1">
                                         <div class="row g-0 d-flex justify-content-center">
                                             <div class="col-4 my-auto">
@@ -84,7 +93,7 @@ $isLoggedIn = isset($_SESSION['idUser']);
                                             <a href="?idObat=<?= $row['idObat'] ?>" class="btn w-50 mb-1" style="background-color: rgb(213, 150, 150); color: white; font-size: 0.75rem;">Lihat Detail</a>
                                         </div>
                                     </div>
-                                <?php
+                            <?php
                                 }
                             } else {
                                 echo "Tidak ada rekomendasi obat.";
@@ -107,4 +116,5 @@ $isLoggedIn = isset($_SESSION['idUser']);
         <?php include 'layouts/footer.html' ?>
     </div>
 </body>
+
 </html>

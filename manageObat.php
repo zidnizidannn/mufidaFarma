@@ -54,7 +54,7 @@ if (!$obatResults) {
     <div class="container">
         <h1 class="text-center">Kelola Obat</h1>
         <div class="text-right navigation-buttons">
-            <a href="indexAdmin.php" class="btn btn-secondary">Kembali ke Dashboard Admin</a>
+            <a href="index.php" class="btn fa fa-arrow-left"></a>
             <a href="addObat.php" class="btn btn-success">Tambah Obat Baru</a>
         </div>
         <table class="table table-bordered">
@@ -79,16 +79,16 @@ if (!$obatResults) {
                     <td><?php echo $obat['idObat']; ?></td>
                     <td><?php echo $obat['namaObat']; ?></td>
                     <td><?php echo $obat['desObat']; ?></td>
-                    <td><?php echo $obat['komposisiObat']; ?></td>
+                    <td><?php echo nl2br($obat['komposisiObat']); ?></td>
                     <td><?php echo $obat['indikasiObat']; ?></td>
-                    <td><?php echo $obat['dosisObat']; ?></td>
-                    <td><?php echo $obat['efekObat']; ?></td>
+                    <td><?php echo nl2br($obat['dosisObat']); ?></td>
+                    <td><?php echo nl2br($obat['efekObat']); ?></td>
                     <td><?php echo $obat['hargaObat']; ?></td>
                     <td><img src="/images/<?php echo $obat['gambarObat']; ?>" alt="Gambar Obat"></td>
                     <td><?php echo $obat['idKategori']; ?></td>
-                    <td class="action-buttons">
-                        <a href="updateObat.php?id=<?php echo $obat['idObat']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                        <a href="deleteObat.php?id=<?php echo $obat['idObat']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                    <td class="action-buttons d-flex justify-content-center">
+                        <a href="updateObat.php?id=<?php echo $obat['idObat']; ?>" class="btn btn-warning btn-lg fa fa-edit text-light p-3 mb-3"></a>
+                        <a href="deleteObat.php?id=<?php echo $obat['idObat']; ?>" class="btn btn-danger btn-lg fa fa-trash-alt text-light p-3 mb-3"></a>
                     </td>
                 </tr>
                 <?php endwhile; ?>
